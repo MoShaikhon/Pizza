@@ -16,10 +16,14 @@ class PizzaPlacesVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     init(pizzaPlacesPresenter: PizzaPlacesPresenter) {
         self.pizzaPlacesPresenter = pizzaPlacesPresenter
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
+       navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Past Orders", style: .plain, target: self, action: #selector(navigateToPastOrdersVC))
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    @objc func navigateToPastOrdersVC(){
+        navigationController?.pushViewController(PastOrdersVC(pastOrdersPresenter: PastOrdersPresenter()), animated: true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +50,7 @@ class PizzaPlacesVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! PizzaPlaceCell
         let pizzaPlace = dataSource![indexPath.item]
-        cell.populateCell(pizzaPlaceName: pizzaPlace.name, pizzaPlaceRating: pizzaPlace.rating.rawValue)
+        cell.populateCell(pizzaPlaceName: pizzaPlace.name, pizzaPlaceRating: pizzaPlace.rating.rawValue, image: UIImage(named: "pizza" + "0")!)
         return cell
     }
     
@@ -55,6 +59,13 @@ class PizzaPlacesVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let pizzaOrderVC = PizzaOrderVC()
+        let cell = collectionView.cellForItem(at: indexPath) as! PizzaPlaceCell
+        pizzaOrderVC.pizzaPlaceName = cell.PizzaPlaceNameLabel.text
+        navigationController?.pushViewController(pizzaOrderVC, animated: true)
     }
 
 }

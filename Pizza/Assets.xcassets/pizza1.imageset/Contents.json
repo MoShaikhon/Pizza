@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "pizza-youtube-channel-art-banner-template-design-836caafa43d0e44e3e6cff9424cd9bba_screen.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
